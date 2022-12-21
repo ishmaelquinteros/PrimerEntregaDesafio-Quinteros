@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Editar Estudiante</h1>
+<div mat-dialog-content>
+  <p>Editar</p>
+  
+  <mat-form-field appearance="fill">
+    <mat-label>DNI</mat-label>
+    <input matInput> {{data.id}}
+  </mat-form-field>
+  
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput> {{data.nombre}}
+  </mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Apellido</mat-label>
+  <input matInput> {{data.apellido}}
+</mat-form-field>
+</div>
+<mat-form-field appearance="fill">
+  <mat-label>Estado</mat-label>
+  <input matInput> {{data.estado}}
+</mat-form-field>
+
+<div mat-dialog-actions>
+  <button mat-button>Guardar</button>
+  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cerrar</button>
+</div>

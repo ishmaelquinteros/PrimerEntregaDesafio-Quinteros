@@ -1,0 +1,11 @@
+.menu{
+    margin-left: 1rem;
+}
+.menu--nav{
+    background-color:gold;
+    height: calc (100vh - 60px);
+}
+
+.item__lista:hover{
+    cursor: pointer;
+}
