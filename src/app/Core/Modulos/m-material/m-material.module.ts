@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatExpansionModule} from '@angular/material/expansion'
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 
@@ -25,6 +26,7 @@ import {MatExpansionModule} from '@angular/material/expansion'
     MatInputModule,
     ReactiveFormsModule,
     MatExpansionModule,
+    MatSlideToggleModule,
   ]
 })
 export class MMaterialModule { }

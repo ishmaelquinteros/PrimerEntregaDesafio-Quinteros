@@ -9,9 +9,30 @@ import { AlumnosComponent } from '../../alumnos/alumnos.component';
   templateUrl: './dialog-studiantes.component.html',
   styleUrls: ['./dialog-studiantes.component.css']
 })
-export class DialogStudiantesComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Alumno){
-  }
+export class DialogStudiantesComponent {  
+    
+    dniControl = new FormControl()
+    nombreControl = new FormControl()
+    apellidoControl = new FormControl()
+    mailControl = new FormControl();
+    estadoControl = new FormControl()
+
+    FormModificarAlumno = new FormGroup({
+      dni: this.dniControl,
+      nombre: this.nombreControl,
+      apellido: this.apellidoControl,
+      mail: this.mailControl,
+      estado: this.estadoControl,
+    })
   
+  constructor(public dialogRef: MatDialogRef<DialogStudiantesComponent>, @Inject(MAT_DIALOG_DATA) public data: Alumno){ 
+    console.log(data)
+    this.FormModificarAlumno.patchValue(data)
+   }
+  
+    Cerrar() {
+      this.dialogRef.close(this.FormModificarAlumno.value); 
+    }
+    
 }
 
