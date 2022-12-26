@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, KeyValueDiffers, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Alumno } from 'src/app/Core/Clases/alumno';
 import { DialogStudiantesComponent } from '../componentes/dialog-studiantes/dialog-studiantes.component';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
+import { PNombrePipe } from 'src/app/Shared/Pipes/p-nombre.pipe';
+import { ThisReceiver } from '@angular/compiler';
 @Component({
   selector: 'app-alumnos',
   templateUrl: './alumnos.component.html',
   styleUrls: ['./alumnos.component.css']
 })
 export class AlumnosComponent {
-
+  mensaje: string = "";
+  
   constructor (private dialogService: MatDialog){}
 
   estudiantes: Alumno[] = [
@@ -24,10 +27,10 @@ export class AlumnosComponent {
   
     displayedColumns = ["id", "nombre", "apellido", "mail", "estado", "editar", "eliminar"]
 
-    dniControl = new FormControl()
-    nombreControl = new FormControl()
-    apellidoControl = new FormControl()
-    mailControl = new FormControl();
+    dniControl = new FormControl('',[Validators.minLength(8), Validators.pattern("^[0-9]+")])
+    nombreControl = new FormControl('',[Validators.minLength(4), Validators.pattern("[a-zA-Z]*")])
+    apellidoControl = new FormControl('',[Validators.minLength(4),Validators.pattern("[a-zA-Z]*")])
+    mailControl = new FormControl('',[Validators.email]);
     estudiantesForm = new FormGroup({
 
       dni: this.dniControl,
@@ -38,8 +41,11 @@ export class AlumnosComponent {
     panelOpenState = false; 
 
     onSubmit(){
-      this.estudiantes = [...this.estudiantes, new Alumno(this.dniControl.value, this.nombreControl.value, this.apellidoControl.value, this.mailControl.value, true)]
-      this.estudiantesForm.reset()
+      if (this.estudiantesForm.valid){
+      this.estudiantes = [...this.estudiantes, new Alumno (this.dniControl.value!, this.nombreControl.value!, this.apellidoControl.value!, this.mailControl.value!, true)]
+      this.estudiantesForm.reset();
+      this.mensaje="";
+    } else {this.mensaje = "existen campos inválidos"};
     }
     
     borrarEstudiante(alumno : Alumno){
@@ -52,9 +58,11 @@ export class AlumnosComponent {
       dialog.afterClosed().subscribe((data)=>{
         console.log(data);
         this.estudiantes = this.estudiantes.map((estudiante)=> estudiante.id === alumno.id ? {
-          ...estudiante, ...data
-        } : estudiante)
+          ...estudiante, ...data} : estudiante)
       })
     }
-    
-  }
+    cambiarEstado(estudiante : Alumno){
+      estudiante.estado = !estudiante.estado;
+      alert("Cambiar el estado del alumno" + " " + estudiante.nombre + " " + estudiante.apellido)
+}
+}

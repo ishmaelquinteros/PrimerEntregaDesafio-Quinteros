@@ -10,6 +10,7 @@ import { AlumnosComponent } from '../../alumnos/alumnos.component';
   styleUrls: ['./dialog-studiantes.component.css']
 })
 export class DialogStudiantesComponent {  
+    mensaje: string = "";
     
     dniControl = new FormControl()
     nombreControl = new FormControl()
@@ -31,8 +32,8 @@ export class DialogStudiantesComponent {
    }
   
     Cerrar() {
+      if (this.FormModificarAlumno.valid){
       this.dialogRef.close(this.FormModificarAlumno.value); 
-    }
-    
+    } else {this.mensaje = "existen campos inválidos"}
 }
-
+}
