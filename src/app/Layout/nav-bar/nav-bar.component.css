@@ -3,9 +3,10 @@
 }
 .menu--nav{
     background-color:gold;
-    height: calc (100vh - 60px);
 }
-
+.navbar{
+    align-items: flex-start;
+}
 .item__lista:hover{
     cursor: pointer;
 }
